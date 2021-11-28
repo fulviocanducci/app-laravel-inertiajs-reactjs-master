@@ -1,14 +1,12 @@
 import { Link } from "@inertiajs/inertia-react";
 import React from "react";
-import { ITodo } from "../../@Types";
+import { IPage, ITodo } from "../../@Types";
+import Pagination from "../../Components/Pagination";
 import Layout from "../../Layout";
 
 interface ITodoProps {
-    todos: {
-        data: ITodo[];
-    };
+    todos: IPage<ITodo>;
 }
-
 function Todo(props: ITodoProps) {
     return (
         <>
@@ -30,12 +28,25 @@ function Todo(props: ITodoProps) {
                 <tbody>
                     {props?.todos?.data?.map((item) => (
                         <tr key={item.id}>
-                            <td className="text-center">{item.id}</td>
-                            <td className="text-left">{item.description}</td>
-                            <td className="text-center">
+                            <td
+                                className="text-center"
+                                style={{ width: "10%" }}
+                            >
+                                {item.id}
+                            </td>
+                            <td className="text-left" style={{ width: "70%" }}>
+                                {item.description}
+                            </td>
+                            <td
+                                className="text-center"
+                                style={{ width: "10%" }}
+                            >
                                 {item.done ? "Sim" : "Não"}
                             </td>
-                            <td className="text-center">
+                            <td
+                                className="text-center"
+                                style={{ width: "10%" }}
+                            >
                                 <Link
                                     href={`/todo/edit/${item.id}`}
                                     className="btn btn-success btn-sm"
@@ -47,6 +58,9 @@ function Todo(props: ITodoProps) {
                     ))}
                 </tbody>
             </table>
+            <div className="text-center">
+                <Pagination model={props.todos} />
+            </div>
         </>
     );
 }

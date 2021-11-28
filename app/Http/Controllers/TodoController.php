@@ -17,7 +17,7 @@ class TodoController extends Controller
 
     public function index()
     {
-        $todos = $this->model->paginate();
+        $todos = $this->model->orderBy('description')->paginate(2)->withQueryString();
         return Inertia::render('Todo/index', compact('todos'));
     }
 
